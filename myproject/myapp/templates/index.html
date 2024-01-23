@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Regression App</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        input {
+            padding: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 8px 12px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h4> - SEPTIAN DWI ANDARESTA - </h4>
+    <h2>PERAMALAN JUMLAH PENDUDUK WANITA KECAMATAN KANDAGSERANG <br> KAB. PEKALONGAN</h2>
+    <form action="{% url 'predict' %}" method="post">
+        {% csrf_token %}
+        <label for="tahun">Tahun:</label>
+        <input type="number" name="tahun" required>
+        <button type="submit">Predict</button>
+    </form>
+</body>
+</html>

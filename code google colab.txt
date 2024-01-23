@@ -1,0 +1,34 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+import joblib
+
+# Baca file CSV
+df = pd.read_csv('/content/kandangsereang_penduuduk_perempuan.csv')
+
+# Pisahkan kolom 'Tahun;penduduk_perempuan' menjadi dua kolom terpisah
+df[['Tahun', 'penduduk_perempuan']] = df['Tahun;penduduk_perempuan'].str.split(';', expand=True)
+
+# Konversi kolom ke tipe data numerik jika diperlukan
+df['Tahun'] = pd.to_numeric(df['Tahun'])
+df['penduduk_perempuan'] = pd.to_numeric(df['penduduk_perempuan'])
+
+# Pilih fitur (X) dan target (y)
+X = df[['Tahun']]
+y = df['penduduk_perempuan']
+
+# Split data menjadi training dan testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Inisialisasi model regresi linear
+model = LinearRegression()
+
+# Melatih model dengan data training
+model.fit(X_train, y_train)
+
+# Evaluasi model di atas data testing (opsional)
+accuracy = model.score(X_test, y_test)
+print(f'Model Accuracy: {accuracy}')
+
+# Simpan model ke file joblib
+joblib.dump(model, 'regression_model.joblib')
